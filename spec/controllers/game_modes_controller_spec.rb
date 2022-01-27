@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe GameModesController, type: :request do
-  let(:base_url) { '/game_modes' }
+describe Api::GameModesController, type: :request do
+  let(:base_url) { '/api/game_modes' }
 
-  describe "GET /game_modes" do
+  describe "GET /api/game_modes" do
     let!(:game_1) { create(:game_mode) }
     let!(:game_2) { create(:game_mode) }
     let!(:game_3) { create(:game_mode) }
@@ -22,7 +22,7 @@ describe GameModesController, type: :request do
     end
   end
 
-  describe "GET /game_modes/:id" do
+  describe "GET /api/game_modes/:id" do
     let!(:game_1) { create(:game_mode) }
     let!(:game_2) { create(:game_mode) }
     let!(:game_3) { create(:game_mode) }
@@ -39,7 +39,7 @@ describe GameModesController, type: :request do
     end
   end
   
-  describe "POST /game_modes" do
+  describe "POST /api/game_modes" do
     context 'when error' do
       let(:params) do 
         {
