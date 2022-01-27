@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+    volumes:
+      - ./tmp/db/pg_data_14:/var/lib/postgresql/14/data
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./tmp/db/redis_data:/data
+    entrypoint: redis-server --appendonly yes
