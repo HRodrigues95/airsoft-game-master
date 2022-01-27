@@ -13,6 +13,8 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "redis", "~> 4.0" # Use Redis adapter to run Action Cable in production
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem 'pry'
+gem 'active_model_serializers'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -35,10 +37,12 @@ gem "bootsnap", require: false
 # Run against this stable release
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
 end
 
