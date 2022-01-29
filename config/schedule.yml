@@ -1,0 +1,5 @@
+
+:schedule:
+  tick_check:
+    every: 1s
+    class: TeamTickLosingJob

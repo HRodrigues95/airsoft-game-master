@@ -1,0 +1,12 @@
+
+:verbose: true
+:pidfile: ../tmp/pids/sidekiq.pid
+:concurrency: 5
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 10
+:queues:
+  - critical
+  - default
+  - low

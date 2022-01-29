@@ -45,7 +45,11 @@ describe Api::GameModesController, type: :request do
         {
           game_mode: {
             total_points: 1000,
-            total_locations: 6
+            total_locations: 6,
+            teams_attributes: [
+              { name: 'BLUFOR', current_points: 500 },
+              { name: 'OPFOR', current_points: 500 }
+            ]
           }
         }
       end
@@ -61,9 +65,20 @@ describe Api::GameModesController, type: :request do
       let(:params) do 
         {
           game_mode: {
-            name: 'Teste',
+            name: 'Simple',
             total_points: 1000,
-            total_locations: 6
+            total_locations: 5,
+            teams_attributes: [
+              { name: 'BLUFOR', current_points: 500 },
+              { name: 'OPFOR', current_points: 500 }
+            ],
+            locations_attributes: [
+              { name: 'A', points: 50 },
+              { name: 'B', points: 60 },
+              { name: 'C', points: 30 },
+              { name: 'D', points: 20 },
+              { name: 'E', points: 50 },
+            ]
           }
         }
       end
@@ -74,9 +89,12 @@ describe Api::GameModesController, type: :request do
         expect(response).to have_http_status(:success)
         body = JSON.parse(response.body)
 
-        expect(body['name']).to eq 'Teste'
+        expect(body['name']).to eq 'Simple'
         expect(body['total_points']).to eq 1000
-        expect(body['total_locations']).to eq 6
+        expect(body['total_locations']).to eq 5
+
+        expect(Team.count).to eq 2
+        expect(Location.count).to eq 5
       end
     end
   end

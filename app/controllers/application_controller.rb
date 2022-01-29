@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
   end
 
   protected
+  
+  def render_service_error(service, status = :bad_request)
+    render json: { errors: service.errors }, status: status
+  end
 
   def render_json_error(identifier, status = :bad_request)
     error = {

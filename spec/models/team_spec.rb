@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe GameMode, type: :model do
-  subject { build(:game_mode) }
+RSpec.describe Team, type: :model do
+  subject { build(:team) }
 
   describe 'validations' do
     it 'with  name' do
