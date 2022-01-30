@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_141950) do
+ActiveRecord::Schema.define(version: 2022_02_03_193532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -44,10 +44,14 @@ ActiveRecord::Schema.define(version: 2022_01_29_141950) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "losing", default: false
+    t.uuid "locations_id"
+    t.integer "locations_count", default: 0
     t.index ["game_mode_id"], name: "index_teams_on_game_mode_id"
+    t.index ["locations_id"], name: "index_teams_on_locations_id"
   end
 
   add_foreign_key "locations", "game_modes"
   add_foreign_key "locations", "teams"
   add_foreign_key "teams", "game_modes"
+  add_foreign_key "teams", "locations", column: "locations_id"
 end

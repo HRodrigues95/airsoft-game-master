@@ -21,21 +21,29 @@ module Api
       end
     end
 
+    def destroy
+      if game_mode.destroy
+        render json: game_mode
+      else
+        render_json_validation_error game_mode
+      end
+    end
+
     def start_game
       if game_mode.update(ongoing: true)
-        TeamTickLosingJob.preform_async(game_mode)
+        TeamTickLosingJob.perform_later(game_mode)
 
-        render json: @game_mode
+        render json: game_mode
       else
         render_json_validation_error @game_mode
       end
     end
     
     def end_game
-      if game_mode.update(ongoing: true)
+      if game_mode.update(ongoing: false)
         service = ResetGameMode.call(game_mode)
 
-        if serv.success?
+        if service.success?
           render json: game_mode
         else
           render_service_error service
@@ -57,11 +65,11 @@ module Api
     end
     
     def load_game_modes
-      @game_modes ||= GameMode.all
+      @game_modes = GameMode.all
     end
   
     def game_mode
-      @game_mode ||= GameMode.find(params[:id])
+      @game_mode ||= GameMode.find(params[:id] || params[:game_mode_id])
     end
   end
 end

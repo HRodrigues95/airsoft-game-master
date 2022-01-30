@@ -3,7 +3,7 @@ class Location < ApplicationRecord
   validates :points, presence: true
 
   belongs_to :game_mode
-  belongs_to :team, optional: true
+  belongs_to :team, counter_cache: :true, optional: true
 
   def captured?
     self.team.present?

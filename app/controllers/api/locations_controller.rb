@@ -1,6 +1,10 @@
 module Api
   class LocationsController < ApplicationController
     before_action :load_game_mode
+
+    def index
+      render json: locations
+    end
     
     def show
       render json: location
@@ -22,6 +26,10 @@ module Api
 
     def load_game_mode
       @game_mode = GameMode.find(params[:game_mode_id])
+    end
+    
+    def locations
+      @locations ||= @game_mode.locations
     end
     
     def location

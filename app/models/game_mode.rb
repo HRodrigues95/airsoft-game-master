@@ -5,5 +5,6 @@ class GameMode < ApplicationRecord
   has_many :teams, dependent: :destroy
   has_many :locations, dependent: :destroy
   
-  accepts_nested_attributes_for :teams, :locations
+  accepts_nested_attributes_for :teams
+  accepts_nested_attributes_for :locations
 end
