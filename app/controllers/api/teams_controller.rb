@@ -11,8 +11,26 @@ module Api
         render json: team
       end
 
+      def create
+        @team = @game_mode.teams.build(team_params)
+  
+        if  @team.save
+          render json: @team
+        else
+          render_json_validation_error  @team
+        end
+      end
+
       def update
         if team.update(team_params)
+          render json: team
+        else
+          render_json_validation_error team
+        end
+      end
+
+      def destroy
+        if team.destroy
           render json: team
         else
           render_json_validation_error team

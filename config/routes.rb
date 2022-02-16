@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       patch 'start', to: 'game_modes#start_game'
       patch 'end', to: 'game_modes#end_game'
 
-      resources :locations, only: [:index, :show, :update]
-      resources :teams, only: [:index, :show, :update] do
+      resources :locations
+      resources :teams do
         patch 'increase', to: 'teams#increase_points'
         patch 'decrease', to: 'teams#decrease_points'
       end

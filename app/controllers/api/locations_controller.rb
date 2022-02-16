@@ -10,8 +10,26 @@ module Api
       render json: location
     end
 
+    def create
+      @location = @game_mode.locations.build(location_params)
+
+      if @location.save
+        render json: @location
+      else
+        render_json_validation_error @location
+      end
+    end
+
     def update
-      if location.update(update_params)
+      if location.update(location_params)
+        render json: location
+      else
+        render_json_validation_error location
+      end
+    end
+
+    def destroy
+      if location.destroy
         render json: location
       else
         render_json_validation_error location
@@ -20,7 +38,7 @@ module Api
 
     private
 
-    def update_params
+    def location_params
       params.require(:location).permit(:name, :points, :team_id)
     end
 

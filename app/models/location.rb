@@ -1,4 +1,6 @@
 class Location < ApplicationRecord
+  default_scope { order(name: :asc) }
+ 
   validates :name, presence: true
   validates :points, presence: true
 
