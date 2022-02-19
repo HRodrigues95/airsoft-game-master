@@ -39,7 +39,7 @@ module Api
     private
 
     def location_params
-      params.require(:location).permit(:name, :points, :team_id)
+      params.require(:location).permit(:name, :points, :team_id, :capture_bonus)
     end
 
     def load_game_mode

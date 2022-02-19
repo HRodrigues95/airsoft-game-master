@@ -20,6 +20,14 @@ module Api
         render_json_validation_error @game_mode
       end
     end
+    
+    def update
+      if game_mode.update(game_mode_params)
+        render json: game_mode
+      else
+        render_json_validation_error game_mode
+      end
+    end
 
     def destroy
       if game_mode.destroy
@@ -30,8 +38,13 @@ module Api
     end
 
     def start_game
+      return render json: game_mode if game_mode.ongoing
+
       if game_mode.update(ongoing: true)
-        TeamTickLosingJob.perform_later(game_mode)
+        LocationCheckJob.perform_at(
+          5.seconds.from_now,
+          game_mode.id
+        )
 
         render json: game_mode
       else
@@ -57,7 +70,7 @@ module Api
   
     def game_mode_params
       params.require(:game_mode).permit(
-        :name, :total_points, :total_locations, 
+        :name, :total_points, :total_locations, :update_tick,
         teams_attributes: [:name, :current_points],
         locations_attributes: [:name, :points],
         configuration: {} 

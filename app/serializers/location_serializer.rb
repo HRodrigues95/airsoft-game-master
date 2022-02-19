@@ -1,5 +1,5 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :name, :points, :captured, :current_team
+  attributes :id, :name, :points, :captured, :current_team, :capture_bonus
 
   def captured
     object.captured?
